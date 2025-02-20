@@ -1,11 +1,15 @@
 import cv2
 import time
 import numpy as np
-from haze_removal import HazeRemoval  # Import your dehaze class
+from haze_removal import HazeRemoval  # Import the dehazing class
 
 def correct_color_space(image):
-    """ Fix BGR <-> RGB color distortions """
+    """ Convert BGR to RGB for correct color processing """
     return cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+def correct_color_space_reverse(image):
+    """ Convert RGB back to BGR for OpenCV display """
+    return cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
 def normalize_image(image):
     """ Ensure correct normalization without over-scaling """
@@ -56,11 +60,12 @@ def main():
             hr.get_dark_channel()
             hr.get_air_light()
 
+            # ✅ Reduce color contrast by tweaking `A`
             if hasattr(hr, 'A'):
-                hr.A = np.clip(hr.A, 0.8, 1.0)  # Prevent over-darkening
+                hr.A = np.clip(hr.A, 0.7, 1.0)  # Allow more natural brightness
 
             hr.get_transmission()
-            hr.guided_filter_opencv(r=15, eps=0.0005)  # Reduced smoothing
+            hr.guided_filter_opencv(r=20, eps=0.002)  # Increased `eps` to smooth better
             hr.recover()
 
             # ✅ Debugging Step 2: Check the Haze-Removed Image Before Rescaling
@@ -76,8 +81,11 @@ def main():
             # ✅ Convert back to uint8 properly
             dehazed_rescaled = rescale_image(dehazed_frame)
 
+            # ✅ Convert RGB back to BGR for OpenCV display
+            dehazed_rescaled_bgr = correct_color_space_reverse(dehazed_rescaled)
+
             # ✅ Debugging Step 3: Check the Rescaled Image
-            cv2.imshow('Step 3: Rescaled Image', dehazed_rescaled)
+            cv2.imshow('Step 3: Rescaled Image', dehazed_rescaled_bgr)
 
             # 🛑 Stop here to check if the issue is before/after this step
             if cv2.waitKey(1) & 0xFF == ord('q'):
