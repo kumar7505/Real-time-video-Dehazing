@@ -25,7 +25,6 @@ def main():
     if not cap.isOpened():
         print("Error: Could not access the camera.")
         return
-
     # ✅ Set manual exposure to prevent real-time auto-adjustments
     cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 0)
     cap.set(cv2.CAP_PROP_BRIGHTNESS, 0.5)
