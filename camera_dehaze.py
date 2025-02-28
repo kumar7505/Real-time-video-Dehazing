@@ -61,7 +61,7 @@ def main():
 
             # ✅ Reduce color contrast by tweaking `A`
             if hasattr(hr, 'A'):
-                hr.A = np.clip(hr.A, 0.7, 1.0)  # Allow more natural brightness
+                hr.A = np.clip(hr.A, 0.85, 1.0)  # Allow more natural brightness
 
             hr.get_transmission()
             hr.guided_filter_opencv(r=20, eps=0.002)  # Increased `eps` to smooth better
