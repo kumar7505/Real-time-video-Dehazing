@@ -7,6 +7,9 @@ from django.contrib import messages
 name = ''
 mail = ''
 
+def dirhome(req):
+    return redirect('/locked')
+
 def check_user(req):
     global name, mail
     name = req.COOKIES.get('username')  # Get username from cookies
@@ -45,7 +48,8 @@ def registration(req):
 
 
 def login(req):
-    print("karthi")
+    if(req.COOKIES.get('username')):
+        return render(req, 'home.html')
     if (req.method == "POST"):
         print("kumar")
         mail = req.POST.get('email')
@@ -54,7 +58,7 @@ def login(req):
         data = User.objects.filter(Mail=mail).first()
         if data:
             if check_password(password, data.Password):
-                res = render(req, 'index.html', {
+                res = render(req, 'home.html', {
                     'username': data.Name,
                     'email': data.Mail
                 })
@@ -65,4 +69,14 @@ def login(req):
                 return res
             return render(req, 'login.html', {'error': 'Passowrd was Incorrect'})
         return render(req, 'login.html', {'error': 'UserMail was not registered'})
-    return render(req, 'index.html')
+    return render(req, 'login.html')
+
+def logout(req):
+    global name, mail
+    name = ''
+    mail = ''
+
+    res = redirect('login')
+    res.delete_cookie('username')
+    res.delete_cookie('useremail')
+    return res
