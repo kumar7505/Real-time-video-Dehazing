@@ -1,0 +1,138 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F5F3FF; /* Light purple-white */
+    color: #3E206D; /* Dark purple */
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+/* Logo Styles */
+.logo-container {
+    margin: 20px 0;
+}
+
+.logo {
+    width: 150px;
+    display: none; /* Hidden before fade-in */
+}
+
+/* Navigation Bar */
+nav {
+    background-color: #5B318B; /* Medium purple */
+    padding: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 18px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #E5D4FF; /* Light purple */
+}
+
+/* Logout Button */
+.logout-button {
+    float: right;
+    background-color: #FF5757;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.logout-button:hover {
+    background-color: #D94343;
+}
+
+/* Hero Section */
+.hero {
+    margin: 50px auto;
+    padding: 50px;
+    background: #5B318B; /* Purple header */
+    color: white;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 900px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.hero h1 {
+    font-size: 2.5em;
+    animation: fadeIn 2s ease-in-out;
+}
+
+.hero p {
+    font-size: 1.2em;
+    animation: slideUp 1.5s ease-in-out;
+}
+
+/* CTA Button */
+.cta-button {
+    display: inline-block;
+    background-color: #E5D4FF; /* Light purple */
+    color: #3E206D;
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 15px;
+    transition: 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #ffffff;
+    color: #5B318B;
+}
+
+/* Features Section */
+.features {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 50px 0;
+}
+
+.feature-box {
+    background-color: white;
+    color: #3E206D;
+    padding: 20px;
+    width: 300px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.feature-box:hover {
+    transform: translateY(-5px);
+}
+
+/* Footer */
+footer {
+    background-color: #5B318B;
+    color: white;
+    padding: 15px;
+    margin-top: 50px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}

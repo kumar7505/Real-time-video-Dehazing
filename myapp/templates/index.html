@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - AI Dehazing</title>
+    <link rel="stylesheet" href="static/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+<body>
+
+    <!-- Logo Section -->
+    <div class="logo-container">
+        <img src="BG.jpg" alt="Project Logo" class="logo">
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="team.html">Team</a>
+        <a href="contact.html">Contact</a>
+        <a href="logout.html" class="logout-button">Logout</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1 class="fade-in">Welcome to AI Dehazing</h1>
+        <p class="slide-up">Enhancing visibility using AI-powered dehazing technology.</p>
+        <a href="dehaze.html" class="cta-button">Try Our Dehaze Algorithm</a>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="feature-box">
+            <h2>🌫️ Remove Haze</h2>
+            <p>Our AI model enhances visibility by intelligently removing fog and haze from images.</p>
+        </div>
+        <div class="feature-box">
+            <h2>⚡ Fast Processing</h2>
+            <p>Get real-time dehazing results with our optimized AI technology.</p>
+        </div>
+        <div class="feature-box">
+            <h2>📷 High-Quality Results</h2>
+            <p>Preserves details and improves image clarity without over-processing.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 AI Dehazing. All rights reserved.</p>
+    </footer>
+
+    <!-- jQuery Animation -->
+    <script>
+        $(document).ready(function(){
+            $(".logo").fadeIn(2000);
+        });
+    </script>
+
+</body>
+</html>
