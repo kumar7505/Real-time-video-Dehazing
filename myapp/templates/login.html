@@ -40,8 +40,8 @@
                 <h1 class="loginh1">Log In</h1>
                 <form action="{% url 'home' %}" method="post">
                     {% csrf_token %}
-                    <input type="email" name="email" placeholder="email">
-                    <input type="password" name="password" placeholder="password">
+                    <input type="email" name="email" placeholder="email" value="{{umail}}" required>
+                    <input type="password" name="password" placeholder="password" required>
                     <div class="password">Password need to contains more than 8 character</div>
                     <div class="auth rem">
                         <label class="remember" for="remember">
@@ -163,9 +163,9 @@
                 <span class="loginwith">Or use email</span>
                 <form actions="{% url 'login' %}" method="post" autocomplete="off">
                     {% csrf_token %}
-                    <input type="text" name="name" placeholder="name">
-                    <input type="email" name="mail" placeholder="email">
-                    <input type="password" name="password" placeholder="password">
+                    <input type="text" name="name" placeholder="name" value="{{name}}" required>
+                    <input type="email" name="mail" placeholder="email" value="{{mail}}"  required>
+                    <input type="password" name="password" placeholder="password" required>
                     <div class="password">Password need to contains more than 8 character</div>
                     <label class="remember" for="terms">
                         <input type="checkbox" name="terms" id="terms" /><span>I accept terms</span>

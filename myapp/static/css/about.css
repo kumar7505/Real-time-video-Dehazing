@@ -1,0 +1,147 @@
+/* General Styling */
+.about-body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #ffffff, #f3e5f5); /* Soft white to light lavender */
+    color: #4B0082;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* About Section */
+.about-body .about-container {
+    max-width: 85%;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0px 8px 20px rgba(75, 0, 130, 0.15);
+    text-align: center;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.about-body .about-container:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 12px 30px rgba(75, 0, 130, 0.2);
+}
+
+/* Headings */
+.about-body .about-title {
+    color: #4B0082;
+    font-size: 38px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    letter-spacing: 1.5px;
+    position: relative;
+}
+
+.about-body .about-title::after {
+    content: "";
+    width: 80px;
+    height: 4px;
+    background: #800080;
+    display: block;
+    margin: 10px auto;
+    border-radius: 2px;
+}
+
+.about-body .about-subtitle {
+    color: #800080;
+    font-size: 28px;
+    margin-top: 30px;
+    text-transform: uppercase;
+}
+
+.about-body .about-section-title {
+    color: #6a0dad;
+    font-size: 22px;
+    margin-top: 20px;
+    font-weight: 600;
+}
+
+/* List Styling */
+.about-body .about-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.about-body .about-list-item {
+    background: #f4e6ff;
+    margin: 8px 0;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 500;
+    transition: transform 0.3s ease-in-out, background 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.about-body .about-list-item::before {
+    content: "✔";
+    color: #4B0082;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.about-body .about-list-item:hover {
+    transform: translateX(8px);
+    background: #e1ccec;
+    cursor: pointer;
+}
+
+/* Button Styling */
+.about-body .about-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background: #4B0082;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+    text-decoration: none;
+    margin-top: 20px;
+}
+
+.about-body .about-btn:hover {
+    background: #6a0dad;
+    transform: translateY(-3px);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .about-body .about-container {
+        max-width: 95%;
+        padding: 20px;
+    }
+
+    .about-body .about-title {
+        font-size: 30px;
+    }
+
+    .about-body .about-subtitle {
+        font-size: 24px;
+    }
+
+    .about-body .about-section-title {
+        font-size: 20px;
+    }
+
+    .about-body .about-list-item {
+        font-size: 16px;
+    }
+
+    .about-body .about-btn {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+}

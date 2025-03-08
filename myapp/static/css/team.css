@@ -1,0 +1,131 @@
+/* ===== TEAM SECTION ===== */
+.team-alpha-section {
+    padding: 5rem 5%;
+    background: linear-gradient(135deg, #f5f7ff 0%, #e0e6ff 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.team-alpha-section h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(to right, #6C63FF, #4A47A3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.team-alpha-section p {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+/* ===== TEAM CONTAINER ===== */
+.team-alpha-container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* ===== TEAM MEMBER CARD ===== */
+.team-alpha-member {
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    width: 320px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    border: 1px solid #ddd;
+    position: relative;
+    overflow: hidden;
+}
+
+.team-alpha-member:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.team-alpha-member::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to right, #6C63FF, #4A47A3);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s ease;
+}
+
+.team-alpha-member:hover::before {
+    transform: scaleX(1);
+}
+
+.team-alpha-member img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 4px solid #6C63FF;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.team-alpha-member:hover img {
+    transform: scale(1.1);
+}
+
+.team-alpha-member h3 {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.team-alpha-member p {
+    font-size: 1rem;
+    color: #777;
+    margin-bottom: 1rem;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media screen and (max-width: 768px) {
+    .team-alpha-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .team-alpha-member {
+        width: 80%;
+    }
+
+    .team-alpha-section h1 {
+        font-size: 2.5rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .team-alpha-section {
+        padding: 3rem 5%;
+    }
+
+    .team-alpha-section h1 {
+        font-size: 2rem;
+    }
+
+    .team-alpha-section p {
+        font-size: 1rem;
+    }
+
+    .team-alpha-member {
+        width: 100%;
+        max-width: 350px;
+    }
+}

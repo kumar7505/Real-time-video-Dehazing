@@ -1,0 +1,44 @@
+{% extends "head.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+{% block content %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/team.css' %}">
+    <title>Meet Our Team</title>
+</head>
+
+<body>
+
+    <!-- Team Section -->
+    <section class="team-alpha-section">
+        <h1>Meet Team Alpha</h1>
+        <p>Our dedicated team behind the AI & ML-based Dehazing System.</p>
+
+        <div class="team-alpha-container">
+            <div class="team-alpha-member">
+                <img src="images/member1.jpg" alt="John Doe">
+                <h3>John Doe</h3>
+                <p>Reg. No: 123456</p>
+            </div>
+
+            <div class="team-alpha-member">
+                <img src="images/member2.jpg" alt="Jane Smith">
+                <h3>Jane Smith</h3>
+                <p>Reg. No: 654321</p>
+            </div>
+
+            <div class="team-alpha-member">
+                <img src="images/member3.jpg" alt="Alex Johnson">
+                <h3>Alex Johnson</h3>
+                <p>Reg. No: 789012</p>
+            </div>
+        </div>
+    </section>
+</body>
+{% endblock %}
+
+</html>
