@@ -1,0 +1,61 @@
+{% extends 'head.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload</title>
+    <link rel="stylesheet" href="{% static 'css/image.css' %}">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="csrf-token" content="{% csrf_token %}">
+</head>
+<body>
+    <div class="container">
+        <div class="card" id="card">
+            <div class="card-front">
+                <div class="upload-area">
+                    <div class="icon-container">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <h3>Upload Image</h3>
+                    <div class="preview-container" id="previewContainer" style="display:none;">
+                        <img id="previewBeforeUpload" src="" alt="">
+                    </div>
+                    <label for="imageInput" class="custom-file-upload">
+                        <i class="fas fa-file-image"></i> Choose File
+                    </label>
+                    <input type="file" id="imageInput" accept="image/*">
+                    <!-- <button id="saveBtn" onclick="saveImage()" disabled>
+                        <i class="fas fa-save"></i> Save
+                    </button> -->
+                    
+                    <button id="uploadBtn" onclick="saveImage()" disabled>
+                        <i class="fas fa-upload"></i> Upload
+                    </button>
+                </div>
+            </div>
+            <div class="card-back">
+                <img id="preview" src="" alt="Uploaded Image">
+                <div class="action-buttons">
+                    <button onclick="openInNewWindow()">
+                        <i class="fas fa-external-link-alt"></i> Open in New Window
+                    </button>
+                    <button onclick="downloadImage()">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+        </div>
+        <button id="resetButton" onclick="resetUpload()" style="display:none;">
+            <i class="fas fa-redo-alt"></i> Upload Another Image
+        </button>
+    </div>
+
+    <script src="{% static 'js/image.js' %}"></script>
+</body>
+{% endblock %}
+</html>

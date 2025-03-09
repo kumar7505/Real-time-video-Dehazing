@@ -2,6 +2,17 @@ from django.shortcuts import render, redirect
 from .models import User
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib import messages
+from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponse
+from django.http import JsonResponse
+from django.core.files.storage import FileSystemStorage
+from django.views.decorators.csrf import csrf_exempt
+import os
+from django.conf import settings
+from myapp.haze_removal import HazeRemoval  # Assuming your haze removal script is in this file
+import time
+import cv2
+
 # Create your views here.
 
 name = ''
@@ -57,7 +68,7 @@ def registration(req):
 
 def login(req):
     if (req.COOKIES.get('username')):
-        return render(req, 'home.html')
+        return render(req, 'home.html', {'request': req})
     if (req.method == "POST"):
         print("kumar")
         mail = req.POST.get('email')
@@ -94,13 +105,85 @@ def logout(req):
 
 
 def about(req):
-    if check_user:
-        print('kua')
-        return redirect('login')
-    return redirect('about')
+    check_user(req)
+    if not req.COOKIES.get('username'):
+        return redirect('login')  # Redirect if the user is not logged in
+    return render(req, 'about.html', {'request': req})
 
 def team(req):
     check_user(req)  # Ensure user is checked
     if not req.COOKIES.get('username'):
         return redirect('login')  # Redirect if the user is not logged in
-    return render(req, 'team.html')
+    return render(req, 'team.html', {'request': req})
+
+def product(req):
+    check_user(req)
+    if not req.COOKIES.get('username'):
+        return redirect('login')  # Redirect if the user is not logged in
+    return render(req, 'product.html')
+
+def product_redirect(req, category):
+    if(category == 'image'):
+        return render(req, 'image.html')
+    elif(category == 'video'):
+        return render(req, 'video.html')
+    elif(category == 'camera'):
+        return render(req, 'camera.html')
+    
+def upload_image(request):
+    if request.method == 'POST' and request.FILES['image']:
+        image = request.FILES['image']
+        
+        # Save image to the 'upload' folder
+        fs = FileSystemStorage(location='media/upload')
+        filename = fs.save(image.name, image)
+        uploaded_file_url = fs.url(filename)
+        
+        # You can return the uploaded image URL for use in the template
+        return render(request, 'home.html', {
+            'uploaded_file_url': uploaded_file_url
+        })
+    return render(request, 'home.html')
+
+@csrf_exempt
+def save_image(request):
+    try:
+        if request.method == 'POST' and request.FILES.get('image'):
+            image = request.FILES['image']
+            fs = FileSystemStorage()
+            filename = fs.save(image.name, image)
+            file_url = fs.url(filename)
+
+            # Image path for original image
+            image_path = os.path.join(settings.MEDIA_ROOT, filename)
+
+            # Initialize and process the image
+            hr = HazeRemoval()
+            hr.open_image(image_path)
+            hr.get_dark_channel()
+            hr.get_air_light()
+            hr.get_transmission()
+            hr.guided_filter_opencv(r=60, eps=0.001)
+            hr.recover()
+            hr.enhance_visibility(alpha=1.5, beta=30)
+
+            # Processed image saving
+            processed_image_name = f"{os.path.splitext(filename)[0]}_dehazed{os.path.splitext(filename)[1]}"
+            processed_image_path = os.path.join(settings.MEDIA_ROOT, 'dehazed', processed_image_name)
+
+            # Save processed image to 'dehazed' directory
+            if not os.path.exists(os.path.join(settings.MEDIA_ROOT, 'dehazed')):
+                os.makedirs(os.path.join(settings.MEDIA_ROOT, 'dehazed'))
+
+            cv2.imwrite(processed_image_path, hr.dst[:, :, (2, 1, 0)])  # Save in BGR format
+
+            # Return JSON response with URLs
+            processed_image_url = os.path.join(settings.MEDIA_URL, 'dehazed', processed_image_name)
+            return JsonResponse({'file_url': file_url, 'processed_image_url': processed_image_url})
+
+        else:
+            return JsonResponse({'error': 'No image uploaded'}, status=400)
+
+    except Exception as e:
+        print(f"Error during image processing: {e}")
+        return JsonResponse({'error': f"An error occurred: {str(e)}"}, status=500)

@@ -1,27 +1,22 @@
 {% extends 'head.html' %}
 
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
 {% block content %}
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About</title>
     <link rel="stylesheet" href="{% static 'css/about.css' %}">
-</head>
-
-<body class="about-body">
+    
     <section class="about-container">
         <h1 class="about-title">About Our Project</h1>
-        <p>Our project is an <strong>AI & ML-based dehazing system</strong> designed to enhance visibility in images, videos, and real-time camera feeds affected by fog, haze, or atmospheric disturbances. It utilizes deep learning techniques to remove haze and restore clear images and videos effectively.</p>
+        <p class="about-description">
+            Our project is an <strong>AI & ML-based dehazing system</strong> designed to enhance visibility in images, 
+            videos, and real-time camera feeds affected by fog, haze, or atmospheric disturbances.
+        </p>
 
         <h2 class="about-subtitle">Key Features & Capabilities</h2>
 
         <h3 class="about-section-title">AI-Powered Dehazing Algorithm</h3>
         <ul class="about-list">
-            <li class="about-list-item">Uses deep learning and machine learning models to remove haze from images and videos.</li>
+            <li class="about-list-item">Uses deep learning models to remove haze from images and videos.</li>
             <li class="about-list-item">Enhances contrast and restores natural colors.</li>
         </ul>
 
@@ -32,25 +27,12 @@
             <li class="about-list-item"><strong>Real-Time Dehazing:</strong> Use a live camera feed to perform real-time dehazing.</li>
         </ul>
 
-        <h3 class="about-section-title">Technology Stack</h3>
-        <ul class="about-list">
-            <li class="about-list-item"><strong>Frontend:</strong> HTML, CSS, JavaScript (with animations)</li>
-            <li class="about-list-item"><strong>Backend:</strong> Flask (Python-based server)</li>
-            <li class="about-list-item"><strong>Machine Learning Models:</strong> TensorFlow / PyTorch</li>
-            <li class="about-list-item"><strong>Computer Vision Libraries:</strong> OpenCV, NumPy</li>
-            <li class="about-list-item"><strong>Deployment:</strong> Flask for web hosting, integrated with AI models</li>
-        </ul>
-
         <h3 class="about-section-title">Future Enhancements</h3>
         <ul class="about-list">
-            <li class="about-list-item">Implement AI-based adaptive dehazing for different weather conditions.</li>
-            <li class="about-list-item">Add night vision enhancement for low-light and foggy environments.</li>
-            <li class="about-list-item">Improve real-time processing speed using deep learning optimization.</li>
-            <li class="about-list-item">Deploy as a mobile app for on-the-go dehazing solutions.</li>
+            <li class="about-list-item">Implement adaptive AI-based dehazing for different weather conditions.</li>
+            <li class="about-list-item">Add night vision enhancement for low-light environments.</li>
         </ul>
 
-        <a href="/" class="about-btn">Go Home</a>
+        <a href="{% url 'home' %}" class="about-btn">Go Home</a>
     </section>
-</body>
 {% endblock %}
-</html>

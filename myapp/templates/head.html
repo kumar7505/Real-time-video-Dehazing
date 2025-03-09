@@ -24,11 +24,12 @@
             <!-- Navigation Bar -->
             <nav>
                 <div class="nav-links">
-                    <a href="{% url 'home' %}" class="active">Products</a>
-                    <a href="{% url 'about' %}">About</a>
-                    <a href="{% url 'team' %}">Team</a>
-                    <a href="contact.html">Contact</a>
+                    <a href="{% url 'product' %}" class="{% if 'product' in request.path %}active{% endif %}">Products</a>
+                    <a href="{% url 'about' %}" class="{% if 'about' in request.path %}active{% endif %}">About</a>
+                    <a href="{% url 'team' %}" class="{% if 'team' in request.path %}active{% endif %}">Team</a>
+                    <a href="#footer" class="">Contact</a>
                 </div>
+                {% if 'home' in req.path %}active{% endif %}
                 <a href="{% url 'logout' %}" class="logout-button">Logout</a>
                 <div class="hamburger">
                     <span></span>
@@ -43,7 +44,7 @@
 
         <!-- Footer -->
         <footer>
-            <div class="footer-content">
+            <div class="footer-content" id="footer">
                 <div class="footer-logo">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cloud-icon">
                         <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path>

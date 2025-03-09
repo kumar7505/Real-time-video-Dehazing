@@ -1,0 +1,23 @@
+{% extends 'head.html' %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing Plans</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/product.css' %}">
+</head>
+
+<body class="product-body-custom">
+    <div id="product-container-custom" data-image-url="{% static 'images/' %}" data-redirect-url="/"></div>
+
+    <script src="{% static 'js/product.js' %}"></script>
+</body>
+{% endblock %}
+</html>

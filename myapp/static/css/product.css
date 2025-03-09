@@ -1,0 +1,236 @@
+:root {
+    --custom-t: 0.75s;
+    --custom-a: 1.5em;
+    --custom-l: 0.2em;
+    --custom-d: 4em;
+    --custom-w: 300px;
+}
+
+.product-body-custom {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--custom-w)), 1fr));
+    place-content: center;
+    text-align: center;
+    text-transform: uppercase;
+    background: #f5f5f5;
+    margin: 0;
+}
+
+#product-container-custom {
+    padding: 2rem 0;
+    display: grid;
+    gap: 2em;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--custom-w)), 1fr));
+    place-content: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.product-card-custom {
+    font: 900 1.25em/1.25 sans-serif;
+    --custom-m: calc(.5*(var(--custom-n) - 1));
+    --custom-abs: max(calc(var(--custom-i) - var(--custom-m)), calc(var(--custom-m) - var(--custom-i)));
+    --custom-val: calc(var(--custom-abs)*(1 + .5*var(--custom-i))/var(--custom-n));
+    --custom-dt0: calc(var(--custom-val)*var(--custom-t));
+    --custom-dt1: calc((var(--custom-val) + 1)*var(--custom-t));
+    --custom-dt2: calc((var(--custom-val) + 1.5)*var(--custom-t));
+    --custom-dt3: calc((var(--custom-val) + 2)*var(--custom-t));
+    
+    overflow: hidden;
+    backface-visibility: hidden;
+    transform: perspective(25em);
+    background: #fff;
+    filter: drop-shadow(4px 4px 13px rgba(0, 0, 0, 0.2));
+    animation: card-custom var(--custom-t) ease-out var(--custom-dt0) backwards;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.product-card-custom:hover {
+    transform: perspective(25em) translateY(-10px) scale(1.02);
+    filter: drop-shadow(8px 8px 20px rgba(0, 0, 0, 0.25));
+}
+
+.product-header-custom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: calc(2*var(--custom-a)) 0.5em var(--custom-a);
+    background: linear-gradient(135deg, var(--custom-grad));
+    color: #fff;
+    position: relative;
+    animation: head-custom var(--custom-t) ease-out var(--custom-dt1) backwards;
+    overflow: hidden;
+}
+
+.product-header-custom::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.product-header-custom:hover::before {
+    opacity: 1;
+}
+
+.product-icon-custom {
+    width: var(--custom-d);
+    height: var(--custom-d);
+    padding: 0.2rem;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    animation: iconFloat var(--custom-t) ease-out var(--custom-dt3) backwards,
+               iconPulse 2s ease-in-out infinite;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    z-index: 1;
+}
+
+.product-icon-custom:hover {
+    transform: scale(1.1) translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.product-title-custom {
+    position: relative;
+    margin: 0;
+    padding: 1em 0;
+    width: 100%;
+    font-size: 1.2em;
+    animation: slideUp var(--custom-t) ease-out var(--custom-dt2) backwards;
+}
+
+.product-border-custom {
+    width: 80%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.5);
+    position: relative;
+    overflow: hidden;
+    animation: borderFade var(--custom-t) ease-out var(--custom-dt2) backwards;
+}
+
+.product-border-custom::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    transform: translateX(-100%);
+    animation: borderSlide 1.5s ease-in-out infinite;
+}
+
+.product-section-custom {
+    padding: 1.5em;
+    position: relative;
+    background: white;
+    animation: sectionSlide var(--custom-t) ease-out var(--custom-dt2) backwards;
+}
+
+.product-button-custom {
+    width: 100%;
+    padding: 1em;
+    background: transparent;
+    border: 2px solid currentColor;
+    color: #333;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    animation: buttonFade var(--custom-t) ease-out var(--custom-dt3) backwards;
+}
+
+.product-button-custom::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: currentColor;
+    transition: transform 0.6s ease;
+    transform: translate(-50%, -50%) scale(0);
+    z-index: -1;
+}
+
+.product-button-custom:hover {
+    color: white;
+    background: black;
+}
+
+.product-button-custom:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+@keyframes card-custom {
+    0% { 
+        transform: perspective(25em) rotateY(180deg) scale(0.8);
+        opacity: 0;
+    }
+}
+
+@keyframes head-custom {
+    0% { 
+        transform: translateY(-100%) scale(0.8);
+        opacity: 0;
+    }
+}
+
+@keyframes iconFloat {
+    0% {
+        transform: translateY(50px) scale(0.5);
+        opacity: 0;
+    }
+}
+
+@keyframes iconPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes slideUp {
+    0% {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+}
+
+@keyframes borderFade {
+    0% { 
+        width: 0;
+        opacity: 0;
+    }
+}
+
+@keyframes borderSlide {
+    0% { transform: translateX(-100%); }
+    50%, 100% { transform: translateX(100%); }
+}
+
+@keyframes sectionSlide {
+    0% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes buttonFade {
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+}
+
