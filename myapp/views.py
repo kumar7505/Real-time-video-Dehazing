@@ -5,14 +5,12 @@ from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
 from django.http import JsonResponse
-from django.core.files.storage import FileSystemStorage
 from django.views.decorators.csrf import csrf_exempt
 import os
 from django.conf import settings
-from myapp.haze_removal import HazeRemoval  # Assuming your haze removal script is in this file
+from myapp.Real_time_video_Dehazing.haze_removal import HazeRemoval  # Assuming your haze removal script is in this file
 import time
 import cv2
-
 # Create your views here.
 
 name = ''
@@ -187,3 +185,50 @@ def save_image(request):
     except Exception as e:
         print(f"Error during image processing: {e}")
         return JsonResponse({'error': f"An error occurred: {str(e)}"}, status=500)
+
+@csrf_exempt
+def save_video(request):
+    try:
+        if request.method == 'POST' and request.FILES.get('video'):
+            video = request.FILES['video']
+            
+            # Create videos directory if it doesn't exist
+            videos_dir = os.path.join(settings.MEDIA_ROOT, 'videos')
+            if not os.path.exists(videos_dir):
+                os.makedirs(videos_dir)
+            
+            # Save video to the 'videos' folder
+            fs = FileSystemStorage(location=videos_dir)
+            filename = fs.save(video.name, video)
+            
+            # Construct the URL for the saved video
+            file_url = os.path.join(settings.MEDIA_URL, 'videos', filename)
+            
+            # Return the URL for use in the template
+            return JsonResponse({
+                'success': True,
+                'file_url': file_url,
+                'message': 'Video uploaded successfully'
+            })
+        else:
+            return JsonResponse({
+                'success': False, 
+                'error': 'No video uploaded'
+            }, status=400)
+            
+    except Exception as e:
+        print(f"Error during video upload: {e}")
+        return JsonResponse({
+            'success': False,
+            'error': f"An error occurred: {str(e)}"
+        }, status=500)
+
+def upload_video(request):
+    if request.method == 'POST' and request.FILES.get('video'):
+        video = request.FILES['video']
+        fs = FileSystemStorage()
+        filename = fs.save(video.name, video)
+        video_url = fs.url(filename)
+        return JsonResponse({'success': True, 'video_url': video_url})
+    else:
+        return JsonResponse({'success': False, 'error': 'No video uploaded or invalid request'})

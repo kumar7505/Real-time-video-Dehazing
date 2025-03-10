@@ -93,8 +93,7 @@ function saveImage() {
     const file = input.files[0];
     
     if (!file) {
-        alert("No image selected!");
-        return;
+        return;  // No image selected, just exit the function
     }
 
     formData.append('image', file);
@@ -113,10 +112,7 @@ function saveImage() {
     .then(response => response.json())
     .then(data => {
         if (data.file_url) {
-            alert("Image saved successfully!");
-            console.log('File saved at:', data.file_url);
-
-            // Set the preview image to the processed (dehazed) image
+            // Remove success alert and update the preview with the processed image (dehazed)
             const previewImage = document.getElementById('preview');
             previewImage.src = data.processed_image_url;  // Set to the dehazed image URL
 
@@ -127,11 +123,10 @@ function saveImage() {
             // Display the reset button to allow uploading another image
             document.getElementById('resetButton').style.display = 'block';
         } else {
-            alert("Failed to save the image.");
+            console.error("Failed to save the image.");
         }
     })
     .catch(error => {
-        alert("An error occurred while saving the image.");
-        console.error(error);
+        console.error("An error occurred while saving the image:", error);
     });
 }

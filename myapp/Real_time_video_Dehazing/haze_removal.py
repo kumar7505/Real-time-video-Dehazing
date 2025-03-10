@@ -3,7 +3,8 @@ import cv2
 import numpy as np
 import time
 import os
-from gf import guided_filter
+from myapp.Real_time_video_Dehazing.gf import guided_filter  # Assuming your haze removal script is in this file
+# from gf import guided_filter
 from numba import jit, prange
 import matplotlib.pyplot as plt
 import sys

@@ -20,6 +20,6 @@ def frames_to_video(frames_folder, output_video_path, fps=30):
     print("Video created successfully!")
 
 # Example usage:
-frames_folder = r'C:\Users\ACER\Downloads\miniproframes\miniprojectimg\image-dehaze-main\dehazed'
-output_video_path = r'C:\Users\ACER\Downloads\miniproframes\miniprojectimg\image-dehaze-main\output.mp4'
+frames_folder = r'C:\Users\Prasanth\sta\Django\Dehazer\myapp\Real_time_video_Dehazing\dehazed'
+output_video_path = r'C:\Users\Prasanth\sta\Django\Dehazer\myapp\Real_time_video_Dehazing\output.mp4'
 frames_to_video(frames_folder, output_video_path,fps=5)

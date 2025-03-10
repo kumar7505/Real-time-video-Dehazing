@@ -1,0 +1,66 @@
+{% extends 'head.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+{% block content %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elegant Video Upload</title>
+  <meta name="csrf-token" content="{{ csrf_token }}">
+  <link rel="stylesheet" href="{% static 'css/video.css' %}">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="video-page-container">
+    <div class="main-content">
+      <h2><span class="material-icons page-title-icon">movie</span> Upload Your Video</h2>
+      
+      <div class="upload-card">
+        <div class="upload-area">
+          <div class="upload-icon-container">
+            <span class="material-icons upload-icon">cloud_upload</span>
+          </div>
+          
+          <p class="upload-instructions">Drag and drop your video here or</p>
+          
+          <input type="file" id="video-upload" name="video" accept="video/*" />
+          <label for="video-upload" class="upload-button">
+            <span class="material-icons">attach_file</span> Select Video File
+          </label>
+          
+          <p class="file-info">Supported formats: MP4, MOV, AVI, MKV</p>
+          <p class="file-info">Maximum file size: 50MB</p>
+        </div>
+        
+        <div id="video-preview-container" class="video-preview-container" style="display: none;">
+          <div class="preview-header">
+            <span class="material-icons preview-icon">slideshow</span>
+            <h3>Video Preview</h3>
+          </div>
+          <video id="video-player" width="100%" controls></video>
+          
+          <div class="video-controls">
+            <button class="control-button" id="remove-button">
+              <span class="material-icons">close</span> Remove
+            </button>
+            <button class="control-button upload-now" id="upload-now">
+              <span class="material-icons">publish</span> Upload Now
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <form id="video-upload-form" enctype="multipart/form-data">
+    <!-- The form is hidden, we handle this with JS -->
+    <input type="file" id="video-upload-input" name="video" accept="video/*" style="display: none;" />
+    <button type="submit" class="upload-now" style="display: none;">Upload Video</button>
+  </form>
+
+  <script src="{% static 'js/video.js' %}"></script>
+</body>
+{% endblock %}
