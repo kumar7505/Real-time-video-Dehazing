@@ -1,0 +1,27 @@
+{% extends 'head.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/camera.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Webcam Toggle</title>
+
+    <!-- ✅ Ensure jQuery is loaded before other scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="camera-container">
+        <h1><i class="fas fa-camera"></i> Webcam Toggle</h1>
+        <button id="startWebcam">
+            <i class="fas fa-video"></i> Start Webcam
+        </button>
+        <video id="start-dehaze-btn" playsinline></video>
+    </div>
+
+    <!-- ✅ Ensure camera.js is loaded after jQuery -->
+    <script src="{% static 'js/camera.js' %}"></script>
+</body>
+{% endblock %}

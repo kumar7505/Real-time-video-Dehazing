@@ -1,0 +1,74 @@
+.camera-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 50px auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
+}
+
+/* Title */
+.camera-container h1 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.camera-container #start-dehaze-btn {
+    visibility: hidden; /* Instead of display: none */
+    opacity: 0;
+    margin-top: 20px;
+    border: 4px solid #007bff;
+    border-radius: 15px;
+    max-width: 100%;
+    height: auto;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.5);
+}
+
+/* When webcam is active */
+.camera-container #start-dehaze-btn.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+/* Button */
+.camera-container button {
+    padding: 12px 24px;
+    font-size: 18px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Hover & Active */
+.camera-container button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.camera-container button:active {
+    transform: scale(0.95);
+}
+
+/* Button Icon */
+.camera-container button i {
+    font-size: 22px;
+}

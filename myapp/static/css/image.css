@@ -145,7 +145,7 @@ button:disabled {
 }
 
 #resetButton {
-    margin-top: 2.5rem;
+    margin-top: 5.5rem;
     background: #ff6b6b;
     box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
 }

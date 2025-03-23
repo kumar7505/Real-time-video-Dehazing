@@ -39,24 +39,24 @@ class HazeRemoval(object):
         self.tran_downsampled = cv2.resize(self.tran, new_size, interpolation=cv2.INTER_LINEAR)
 
     def process(self, image_path):
+    # Load image
         img = cv2.imread(image_path)
-        if img is None:
-            raise ValueError("Error loading image. Ensure the file exists and is a valid image.")
-
         self.src = img / 255.0  # Normalize image
         self.tran = np.zeros_like(self.src)  # Placeholder for transmission map
 
-        # Downsample image safely
+        # Downsample image to speed up processing
         self.downsample_image(factor=0.2)
 
-        # Proceed with haze removal steps...
+        # Perform haze removal steps...
         self.guided_filter_opencv(r=60, eps=0.001)
-        self.show()
 
-    def enhance_visibility(self, alpha=1.3, beta=10):
+        # Additional steps...
+        self.show() 
+
+
+    def enhance_visibility(self, alpha=1.5, beta=30):
         """Enhances the contrast and brightness of the dehazed image."""
         self.dst = cv2.convertScaleAbs(self.dst, alpha=alpha, beta=beta)
-
 
     def open_image(self, img_path):
         print(f"Opening image: {img_path}")
@@ -88,36 +88,24 @@ class HazeRemoval(object):
         print("Dark channel computation time:", time.time() - start)
 
     def get_air_light(self):
-        print("Starting air light estimation...")
+        print("Starting to compute air light prior...")
         start = time.time()
-
-        num = max(10, int(self.rows * self.cols * 0.001))  # Ensure at least 10 pixels
-        flat = np.sort(self.dark.flatten())[-num:]  # Get brightest dark pixels
-
-        selected_pixels = self.src[self.dark >= flat.min()]
-        
-        if selected_pixels.size == 0:
-            raise ValueError("No valid pixels found for air light estimation.")
-
-        self.Alight = np.mean(selected_pixels[:num], axis=0)  # Improved stability
-        print("Air light computed:", self.Alight)
-        print("Computation time:", time.time() - start)
-
-
+        flat = self.dark.flatten()
+        flat.sort()
+        num = int(self.rows * self.cols * 0.001)
+        threshold = flat[-num]
+        tmp = self.src[self.dark >= threshold]
+        tmp.sort(axis=0)
+        self.Alight = tmp[-num:, :].mean(axis=0)
+        print("Air light computation time:", time.time() - start)
 
     def get_transmission(self, omega=0.95):
         print("Starting to compute transmission...")
         start = time.time()
-
-        normalized_src = self.src / (self.Alight + 1e-6)  # Avoid division by zero
+        # Vectorized operation
+        normalized_src = self.src / self.Alight
         self.tran = 1. - omega * np.min(normalized_src, axis=2)
-
-        # Reduce lower bound to allow darker areas to remain
-        self.tran = np.clip(self.tran, 0.1, 1)  # Lowered from 0.2 to 0.1
-        print("Transmission computed with improved minimum threshold")
         print("Transmission computation time:", time.time() - start)
-
-
 
     def guided_filter_opencv(self, r=60, eps=0.001):
         print("Starting to compute guided filter transmission using OpenCV...")
@@ -129,35 +117,40 @@ class HazeRemoval(object):
                                             r, eps)
         print("Guided filter time:", time.time() - start)
 
-    def recover(self, t0=0.1, gamma=1.2, saturation_scale=1.2):
-        print("Starting recovery process...")
+
+    def recover(self, t0=0.1):
+        """ Recover the dehazed image """
+        print("Starting recovering...")
         start = time.time()
 
+        # Ensure transmission is not below t0 (avoiding division by zero)
         self.gtran = np.maximum(self.gtran, t0)
 
-        # Reduce air light impact to prevent excessive brightness
-        adjusted_A = self.Alight * 0.85  # Adjust air light contribution
-        t = self.gtran[:, :, np.newaxis]
-        self.dst = (self.src - adjusted_A) / t + adjusted_A
+        # 🔍 Debugging: Print array shapes
+        print("Shape of self.src:", self.src.shape)  # Expected: (height, width, 3)
+        print("Shape of self.Alight before reshape:", self.Alight.shape)  # Expected: (3,)
+
+        # Ensure Alight is properly reshaped
+        self.Alight = self.Alight.reshape((1, 1, 3))  # Shape: (1,1,3)
+        print("Shape of self.Alight after reshape:", self.Alight.shape)  # Expected: (1,1,3)
+
+        # ✅ Ensure transmission t has the correct shape
+        t = self.gtran.squeeze()  # Remove unnecessary dimensions
+        t = t[:, :, np.newaxis]  # Ensure shape (height, width, 1)
+        
+        print("Shape of self.gtran after squeeze:", self.gtran.shape)  # Expected: (height, width) or (height, width, 1)
+        print("Shape of t after adding new axis:", t.shape)  # ✅ Expected: (height, width, 1)
+
+        # ✅ Apply the dehazing equation
+        self.dst = (self.src - self.Alight) / t + self.Alight
+
+        # ✅ Clip values to keep them within [0,1] range
         self.dst = np.clip(self.dst, 0, 1)
 
-        # Dynamic gamma adjustment based on image brightness
-        avg_brightness = np.mean(self.dst)
-        gamma = 1.5 if avg_brightness < 0.3 else 1.2
+        # ✅ Convert to uint8 for proper image saving
+        self.dst = (self.dst * 255).astype(np.uint8)
 
-        # Optimized gamma correction using LUT
-        look_up_table = np.array([(i / 255.0) ** (1 / gamma) * 255 for i in range(256)], dtype=np.uint8)
-        self.dst = cv2.LUT((self.dst * 255).astype(np.uint8), look_up_table)
-
-        # Adjust saturation
-        hsv = cv2.cvtColor(self.dst, cv2.COLOR_RGB2HSV).astype(np.float32)
-        hsv[:, :, 1] *= saturation_scale
-        hsv[:, :, 1] = np.clip(hsv[:, :, 1], 0, 255)
-        self.dst = cv2.cvtColor(hsv.astype(np.uint8), cv2.COLOR_HSV2RGB)
-
-        print("Recovery completed in", time.time() - start, "seconds")
-
-
+        print("Recovery time:", time.time() - start)
 
 
     def show(self):

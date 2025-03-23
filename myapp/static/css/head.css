@@ -253,6 +253,8 @@ body {
 
 .head .social-icons {
     display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 1rem;
 }
 
@@ -265,11 +267,13 @@ body {
     align-items: center;
     justify-content: center;
     transition: var(--transition);
+    margin-top: 10px;
 }
 
 .head .social-icon svg {
     width: 20px;
     height: 20px;
+    margin-top: 10px;
 }
 
 .head .social-icon:hover {

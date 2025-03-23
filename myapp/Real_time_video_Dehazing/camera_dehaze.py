@@ -1,7 +1,7 @@
 import cv2
 import time
 import numpy as np
-from haze_removal import HazeRemoval  # Import the dehazing class
+from myapp.Real_time_video_Dehazing.haze_removal import HazeRemoval  # Import the dehazing class
 
 def correct_color_space(image):
     """ Convert BGR to RGB for correct color processing """

@@ -117,15 +117,6 @@ h2 {
   margin-top: 15px;
 }
 
-/* Video Preview Styling */
-.video-preview-container {
-  margin-top: 30px;
-  background-color: #f8faff;
-  padding: 20px;
-  border-radius: 8px;
-  border: 1px solid #e6eaf0;
-}
-
 .preview-header {
   display: flex;
   align-items: center;
@@ -149,13 +140,6 @@ h2 {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   background-color: #000;
 }
-
-.video-controls {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
 .control-button {
   display: flex;
   align-items: center;
@@ -207,4 +191,118 @@ h2 {
   .upload-area {
     padding: 30px 15px;
   }
+}
+
+/* Add these styles to your existing video.css file */
+
+/* Fade animations */
+.fade-transition {
+  transition: opacity 0.5s ease, transform 0.3s ease;
+}
+
+/* Highlight effect for drop area */
+.upload-area.highlight {
+  border-color: #5e72e4;
+  background-color: rgba(94, 114, 228, 0.05);
+  transform: scale(1.01);
+  box-shadow: 0 0 15px rgba(94, 114, 228, 0.2);
+}
+
+/* Button click animation */
+.control-button:active {
+  transform: scale(0.95);
+}
+
+.download-button:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 7px 14px rgba(76, 175, 80, 0.4);
+}
+
+/* Spinning animation for processing icon */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spin {
+  animation: spin 2s linear infinite;
+  display: inline-block;
+}
+
+/* Video container transition */
+.video-preview-container {
+  transition: opacity 0.5s ease, transform 0.3s ease;
+}
+
+/* Upload area transition */
+.upload-area {
+  transition: all 0.3s ease, opacity 0.5s ease, transform 0.3s ease;
+}
+
+/* Additional CSS to fix alignment issues */
+.video-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+/* Improved download button styling */
+.download-button {
+  display: flex;
+
+  gap: 8px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 500;
+  box-shadow: 0 4px 6px rgba(76, 175, 80, 0.3);
+  transition: all 0.3s ease;
+  margin: 0; /* Remove margin to fix alignment */
+}
+
+.download {
+  display: flex;
+  
+  gap: 8px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 500;
+  box-shadow: 0 4px 6px rgba(76, 175, 80, 0.3);
+  transition: all 0.3s ease;
+  margin: 0; /* Remove margin to fix alignment */
+}
+
+/* Upload status styling improvements */
+#upload-status {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+}
+
+#upload-status p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Ensure proper spacing for elements */
+.video-preview-container {
+  margin-top: 30px;
+  background-color: #f8faff;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #e6eaf0;
+  width: 100%;
 }

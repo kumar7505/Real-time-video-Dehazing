@@ -12,7 +12,6 @@
     grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--custom-w)), 1fr));
     place-content: center;
     text-align: center;
-    text-transform: uppercase;
     background: #f5f5f5;
     margin: 0;
 }
@@ -29,6 +28,8 @@
 }
 
 .product-card-custom {
+    
+    text-transform: uppercase;
     font: 900 1.25em/1.25 sans-serif;
     --custom-m: calc(.5*(var(--custom-n) - 1));
     --custom-abs: max(calc(var(--custom-i) - var(--custom-m)), calc(var(--custom-m) - var(--custom-i)));
